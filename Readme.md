@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ирина Швецова](https://up.htmlacademy.ru/javascript/11/user/204406).
-* Наставник: `Неизвестно`.
+* Наставник: Николай Загорный.
 
 ---
 
