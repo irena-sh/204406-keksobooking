@@ -17,7 +17,7 @@ window.form = (function () {
     house: 5000,
     palace: 10000
   };
-  
+
   var roomsAccordance = {
     1: [1],
     2: [1, 2],
@@ -29,7 +29,7 @@ window.form = (function () {
     element.style.borderWidth = '3px';
     element.style.borderColor = 'red';
   };
-  
+
   var returnBorderColor = function (element) {
     element.style.borderWidth = '';
     element.style.borderColor = '';

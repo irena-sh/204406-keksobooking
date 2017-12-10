@@ -53,7 +53,7 @@
       closePopup();
     }
   };
-  
+
   var clickPin = function (event) {
     var activeElement = event.target;
     while (activeElement !== pinsContainer) {
