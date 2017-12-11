@@ -4,6 +4,13 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
+  var limit = {
+    min: 100,
+    max: 500
+  };
+
+  var pinHeight = 70;
+
   var mainMap = document.querySelector('.map');
   var pinsContainer = mainMap.querySelector('.map__pins');
   var mapElementTemplate = document.querySelector('template').content.querySelector('.map__card');
@@ -13,6 +20,11 @@
   var fragment = document.createDocumentFragment();
   var actualPin = false;
   var allObjects = []; // объекты недвижимости
+
+  var getCoords = function (element) {
+    var box = element.getBoundingClientRect();
+    return (box.left + pageXOffset) + 'px, ' + (box.top + pageYOffset) + 'px';
+  };
 
   var startPage = function () { // начало работы с картой
     mainMap.classList.remove('map--faded');
@@ -71,10 +83,48 @@
     }
   };
 
+  var onStartPageMousedown = function (event) {
+    event.preventDefault();
+    var coords = {
+      x: event.clientX,
+      y: event.clientY
+    };
+    
+    var onMouseMove = function (event) {
+      event.preventDefault();
+      var movement = {
+        x: coords.x - event.clientX,
+        y: coords.y - event.clientY
+      };
+      coords = {
+        x: event.clientX,
+        y: event.clientY
+      };
+      pinMain.style.left = (pinMain.offsetLeft - movement.x) + 'px';
+      if ((pinMain.offsetTop - movement.y) >= (limit.min - pinHeight) && (pinMain.offsetTop - movement.y) <= (limit.max - pinHeight)) {
+        pinMain.style.top = (pinMain.offsetTop - movement.y) + 'px';
+      }
+    };
+
+    var onMouseUp = function (event) {
+      event.preventDefault();
+      var houseAdress = document.querySelector('#address');
+      if (houseAdress) {
+        houseAdress.value = 'x: {{' + coords.x + '}}, y: {{' + coords.y + '}}';
+      }
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
+  pinMain.addEventListener('mousedown', onStartPageMousedown);
   pinMain.addEventListener('mouseup', startPage);
   pinsContainer.addEventListener('click', clickPin);
   mapElementClose.addEventListener('click', closePinMouse);
   mapElementClose.addEventListener('keydown', onEnterClosePin);
+
 
   allObjects = window.data.getPosts();
   allObjects.forEach(window.pin.render, fragment);
