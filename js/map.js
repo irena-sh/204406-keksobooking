@@ -21,11 +21,6 @@
   var actualPin = false;
   var allObjects = []; // объекты недвижимости
 
-  var getCoords = function (element) {
-    var box = element.getBoundingClientRect();
-    return (box.left + pageXOffset) + 'px, ' + (box.top + pageYOffset) + 'px';
-  };
-
   var startPage = function () { // начало работы с картой
     mainMap.classList.remove('map--faded');
     pinsContainer.appendChild(fragment);
@@ -89,16 +84,16 @@
       x: event.clientX,
       y: event.clientY
     };
-    
-    var onMouseMove = function (event) {
-      event.preventDefault();
+
+    var onMouseMove = function (eventM) {
+      eventM.preventDefault();
       var movement = {
-        x: coords.x - event.clientX,
-        y: coords.y - event.clientY
+        x: coords.x - eventM.clientX,
+        y: coords.y - eventM.clientY
       };
       coords = {
-        x: event.clientX,
-        y: event.clientY
+        x: eventM.clientX,
+        y: eventM.clientY
       };
       pinMain.style.left = (pinMain.offsetLeft - movement.x) + 'px';
       if ((pinMain.offsetTop - movement.y) >= (limit.min - pinHeight) && (pinMain.offsetTop - movement.y) <= (limit.max - pinHeight)) {
@@ -106,8 +101,8 @@
       }
     };
 
-    var onMouseUp = function (event) {
-      event.preventDefault();
+    var onMouseUp = function (eventUp) {
+      eventUp.preventDefault();
       var houseAdress = document.querySelector('#address');
       if (houseAdress) {
         houseAdress.value = 'x: {{' + coords.x + '}}, y: {{' + coords.y + '}}';
