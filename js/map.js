@@ -4,12 +4,10 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
-  var limit = {
+  var LIMIT = {
     min: 100,
-    max: 500
+    max: 660
   };
-
-  var pinHeight = 70;
 
   var mainMap = document.querySelector('.map');
   var pinsContainer = mainMap.querySelector('.map__pins');
@@ -20,6 +18,7 @@
   var fragment = document.createDocumentFragment();
   var actualPin = false;
   var allObjects = []; // объекты недвижимости
+  var mainPin = document.querySelector('.map__pin--main');
 
   var startPage = function () { // начало работы с картой
     mainMap.classList.remove('map--faded');
@@ -91,14 +90,17 @@
         x: coords.x - eventM.clientX,
         y: coords.y - eventM.clientY
       };
+      var newY = mainPin.offsetTop - movement.y;
+      var newX = mainPin.offsetLeft - movement.x;
+      if (newY < LIMIT.min || newY > LIMIT.max) {
+        return;
+      }
       coords = {
         x: eventM.clientX,
         y: eventM.clientY
       };
-      pinMain.style.left = (pinMain.offsetLeft - movement.x) + 'px';
-      if ((pinMain.offsetTop - movement.y) >= (limit.min - pinHeight) && (pinMain.offsetTop - movement.y) <= (limit.max - pinHeight)) {
-        pinMain.style.top = (pinMain.offsetTop - movement.y) + 'px';
-      }
+      mainPin.style.top = newY + 'px';
+      mainPin.style.left = newX + 'px';
     };
 
     var onMouseUp = function (eventUp) {

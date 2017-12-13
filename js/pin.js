@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 window.pin = (function () {
-  var PIN_Y = 62;
+  var PIN_Y = 46;
 
   var mapTemplate = document.querySelector('template').content.querySelector('.map__pin');
 
