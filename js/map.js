@@ -9,6 +9,9 @@
     max: 660
   };
 
+  var PIN_TAIL = 20;
+  var PIN_HEIGHT = 50;
+
   var mainMap = document.querySelector('.map');
   var pinsContainer = mainMap.querySelector('.map__pins');
   var mapElementTemplate = document.querySelector('template').content.querySelector('.map__card');
@@ -19,6 +22,7 @@
   var actualPin = false;
   var allObjects = []; // объекты недвижимости
   var mainPin = document.querySelector('.map__pin--main');
+
 
   var startPage = function () { // начало работы с картой
     mainMap.classList.remove('map--faded');
@@ -90,25 +94,22 @@
         x: coords.x - eventM.clientX,
         y: coords.y - eventM.clientY
       };
-      var newY = mainPin.offsetTop - movement.y;
-      var newX = mainPin.offsetLeft - movement.x;
-      if (newY < LIMIT.min || newY > LIMIT.max) {
-        return;
-      }
       coords = {
         x: eventM.clientX,
         y: eventM.clientY
       };
-      mainPin.style.top = newY + 'px';
+      var newY = mainPin.offsetTop - movement.y;
+      var newX = mainPin.offsetLeft - movement.x;
+      if (newY > LIMIT.min && newY < LIMIT.max) {
+        mainPin.style.top = newY + 'px';
+      }
       mainPin.style.left = newX + 'px';
+      var houseAddress = document.querySelector('#address');
+      houseAddress.value = 'x: {{' + (newX + PIN_TAIL) + '}}, y: {{' + (newY + PIN_HEIGHT) + '}}';
     };
 
     var onMouseUp = function (eventUp) {
       eventUp.preventDefault();
-      var houseAdress = document.querySelector('#address');
-      if (houseAdress) {
-        houseAdress.value = 'x: {{' + coords.x + '}}, y: {{' + coords.y + '}}';
-      }
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
