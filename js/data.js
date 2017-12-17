@@ -22,6 +22,20 @@ window.data = (function () {
     }
   };
 
+  var places = {
+    flat: 'Квартира',
+    house: 'Дом',
+    bungalo: 'Бунгало',
+    palace: 'Дворец'
+  };
+
+  var offerPrice = {
+    flat: 1000,
+    bungalo: 0,
+    house: 5000,
+    palace: 10000
+  };
+
   var allObjects = []; // объекты недвижимости
   var offers = OBJECTS.slice();
 
@@ -41,12 +55,15 @@ window.data = (function () {
     return newFeatures;
   };
   return {
-    places: {
-      flat: 'Квартира',
-      house: 'Дом',
-      bungalo: 'Бунгало',
-      palace: 'Дворец'
-    },
+    placeType: TYPES.slice(),
+    placesValue: TYPES.map(function (elem) {
+      return places[elem];
+    }),
+    arrPrices: TYPES.map(function (elem) {
+      return offerPrice[elem];
+    }),
+    arrOfferChecks: TIMES.slice(),
+
     getPosts: function () {
       for (var i = 0; i < PINS_NUMBER; i++) {
         var locationX = getRandomValue(coordinates.x.min, coordinates.x.max);

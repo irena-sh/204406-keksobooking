@@ -11,19 +11,13 @@ window.form = (function () {
   var roomNumber = noticeForm.querySelector('#room_number');
   var houseAccordance = noticeForm.querySelector('#capacity');
 
-  var offerPrice = {
-    flat: 1000,
-    bungalo: 0,
-    house: 5000,
-    palace: 10000
-  };
-
   var roomsAccordance = {
     1: [1],
     2: [1, 2],
     3: [1, 2, 3],
     100: [0]
   };
+
 
   var changeBorderColor = function (element) {
     element.style.borderWidth = '3px';
@@ -57,16 +51,23 @@ window.form = (function () {
     returnBorderColor(evt.target);
   };
 
-  var changeCheckIn = function () {
-    houseCheckOut.selectedIndex = houseCheckIn.selectedIndex;
+  var onchangeCheckIn = function () {
+    window.synchronizeFields(houseCheckIn, houseCheckOut, window.data.arrOfferChecks, window.data.arrOfferChecks, syncValues);
   };
 
-  var changeCheckOut = function () {
-    houseCheckIn.value = houseCheckOut.value;
+  var onchangeCheckOut = function () {
+    window.synchronizeFields(houseCheckOut, houseCheckIn, window.data.arrOfferChecks, window.data.arrOfferChecks, syncValues);
   };
 
-  var changeType = function () {
-    housePrice.min = offerPrice[houseType.value];
+  var onchangeType = function () {
+    window.synchronizeFields(houseType, housePrice, window.data.placeType, window.data.prices, syncMin);
+  };
+
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
+  var syncMin = function (element, value) {
+    element.min = value;
   };
 
   var onWrongPrice = function () {
@@ -81,7 +82,7 @@ window.form = (function () {
     }
   };
 
-  var changePrice = function () {
+  var onchangePrice = function () {
     returnBorderColor(housePrice);
     housePrice.setCustomValidity('');
   };
@@ -117,11 +118,11 @@ window.form = (function () {
   houseTitle.addEventListener('invalid', onWrongTitle);
   houseTitle.addEventListener('blur', onBlurTitle);
   houseTitle.addEventListener('focus', onFocusTitle);
-  houseCheckIn.addEventListener('change', changeCheckIn);
-  houseCheckOut.addEventListener('change', changeCheckOut);
-  houseType.addEventListener('change', changeType);
+  houseCheckIn.addEventListener('change', onchangeCheckIn);
+  houseCheckOut.addEventListener('change', onchangeCheckOut);
+  houseType.addEventListener('change', onchangeType);
   housePrice.addEventListener('invalid', onWrongPrice);
-  housePrice.addEventListener('change', changePrice);
+  housePrice.addEventListener('change', onchangePrice);
   roomNumber.addEventListener('change', onChangeRoomNumber);
 
   return {
