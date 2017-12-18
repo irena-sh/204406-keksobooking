@@ -62,11 +62,17 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  var successSave = function (evt) {
+    evt.forEach(window.pin.render, fragment);
+    allObjects = evt.slice();
+    pinMain.addEventListener('mouseup', startPage);
+  };
+
   pinMain.addEventListener('mousedown', onStartPageMousedown);
   pinMain.addEventListener('mouseup', startPage);
   pinsContainer.addEventListener('click', clickPin);
 
-  allObjects = window.data.getPosts();
-  allObjects.forEach(window.pin.render, fragment);
   mainMap.appendChild(window.showCard.openCard(pinMain, allObjects[0], pinsContainer));
+  window.backend.load(successSave, window.backend.errorLoadSave);
+  pinsContainer.addEventListener('click', clickPin);
 })();

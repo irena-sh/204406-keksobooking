@@ -1,6 +1,9 @@
 ﻿'use strict';
 
 window.form = (function () {
+  var TYPES = ['flat', 'house', 'bungalo', 'palace'];
+  var TIMES = ['12:00', '13:00', '14:00'];
+
   var noticeForm = document.querySelector('.notice__form');
 
   var houseType = noticeForm.querySelector('#type');
@@ -18,6 +21,16 @@ window.form = (function () {
     100: [0]
   };
 
+  var offerPrice = {
+    flat: 1000,
+    bungalo: 0,
+    house: 5000,
+    palace: 10000
+  };
+
+  var prices = TYPES.map(function (elem) {
+    return offerPrice[elem];
+  });
 
   var changeBorderColor = function (element) {
     element.style.borderWidth = '3px';
@@ -52,15 +65,15 @@ window.form = (function () {
   };
 
   var onchangeCheckIn = function () {
-    window.synchronizeFields(houseCheckIn, houseCheckOut, window.data.arrOfferChecks, window.data.arrOfferChecks, syncValues);
+    window.synchronizeFields(houseCheckIn, houseCheckOut, TIMES, TIMES, syncValues);
   };
 
   var onchangeCheckOut = function () {
-    window.synchronizeFields(houseCheckOut, houseCheckIn, window.data.arrOfferChecks, window.data.arrOfferChecks, syncValues);
+    window.synchronizeFields(houseCheckOut, houseCheckIn, TIMES, TIMES, syncValues);
   };
 
   var onchangeType = function () {
-    window.synchronizeFields(houseType, housePrice, window.data.placeType, window.data.prices, syncMin);
+    window.synchronizeFields(houseType, housePrice, TYPES, prices, syncMin);
   };
 
   var syncValues = function (element, value) {
@@ -107,6 +120,16 @@ window.form = (function () {
     houseAccordance.value = arrCapacitySelect[0];
   };
 
+  // отправка формы
+  var onSubmitForm = function (event) {
+    window.backend.save(new FormData(noticeForm), showOriginalForm, window.backend.errorLoadSave);
+    event.preventDefault();
+  };
+
+  var showOriginalForm = function () {
+    noticeForm.reset();
+  };
+
   var roomsActivate = function (element) {
     element.classList.remove('hidden');
   };
@@ -124,6 +147,7 @@ window.form = (function () {
   housePrice.addEventListener('invalid', onWrongPrice);
   housePrice.addEventListener('change', onchangePrice);
   roomNumber.addEventListener('change', onChangeRoomNumber);
+  noticeForm.addEventListener('submit', onSubmitForm);
 
   return {
     activate: function () {
