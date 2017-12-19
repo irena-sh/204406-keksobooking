@@ -15,6 +15,8 @@
   var fragment = document.createDocumentFragment();
   var allObjects = []; // объекты недвижимости
   var mainPin = document.querySelector('.map__pin--main');
+  var houseFilter = document.querySelector('.map__filters');
+  var newData = [];
 
   var startPage = function () { // начало работы с картой
     mainMap.classList.remove('map--faded');
@@ -62,10 +64,24 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  var successSave = function (evt) {
-    allObjects = window.mapFilters.sample(evt);
+  var successSave = function (arrData) {
+    newData = arrData.slice();
+    allObjects = window.mapFilters.sample(arrData);
     allObjects.forEach(window.pin.render, fragment);
     pinMain.addEventListener('mouseup', startPage);
+  };
+
+  var resetPins = function () {
+    while (pinsContainer.childElementCount > 2) {
+      pinsContainer.removeChild(pinsContainer.lastChild);
+    }
+  };
+
+  var onChangeFilter = function () {
+    allObjects = window.mapFilters.updateData(newData);
+    allObjects.forEach(window.pin.render, fragment);
+    resetPins();
+    pinsContainer.appendChild(fragment);
   };
 
   pinMain.addEventListener('mousedown', onStartPageMousedown);
@@ -75,4 +91,5 @@
   mainMap.appendChild(window.showCard.openCard(pinMain, allObjects[0], pinsContainer));
   window.backend.load(successSave, window.backend.errorLoadSave);
   pinsContainer.addEventListener('click', clickPin);
+  houseFilter.addEventListener('click', onChangeFilter);
 })();
