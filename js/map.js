@@ -63,8 +63,8 @@
   };
 
   var successSave = function (evt) {
-    evt.forEach(window.pin.render, fragment);
-    allObjects = evt.slice();
+    allObjects = window.mapFilters.sample(evt);
+    allObjects.forEach(window.pin.render, fragment);
     pinMain.addEventListener('mouseup', startPage);
   };
 
