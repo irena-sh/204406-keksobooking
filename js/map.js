@@ -52,7 +52,7 @@
       }
       mainPin.style.left = newX + 'px';
       var houseAddress = document.querySelector('#address');
-      houseAddress.value = 'x: {{' + (newX + PIN_WIDTH) + '}}, y: {{' + (newY + PIN_HEIGHT) + '}}';
+      houseAddress.value = 'x: ' + (newX + PIN_WIDTH) + ', y: ' + (newY + PIN_HEIGHT);
     };
 
     var onMouseUp = function (eventUp) {
