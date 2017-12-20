@@ -10,7 +10,7 @@ window.mapFilters = (function () {
     houseGuests: 'any'
   };
 
-  var objChecked = {
+  var selectedObjects = {
     wifi: false,
     dishwasher: false,
     parking: false,
@@ -31,7 +31,7 @@ window.mapFilters = (function () {
   var washerFeature = featuresFilter.querySelector('#filter-washer');
   var liftFeature = featuresFilter.querySelector('#filter-elevator');
   var conditionerFeature = featuresFilter.querySelector('#filter-conditioner');
-  var newData = [];
+  var newObjects = [];
 
   var showHouse = function (newArr) {
     if (objects.houseType !== 'any') {
@@ -81,8 +81,8 @@ window.mapFilters = (function () {
   };
   var showFeatures = function (newArr) {
     var filterSet = false;
-    for (var key in objChecked) {
-      if (objChecked[key]) {
+    for (var key in selectedObjects) {
+      if (selectedObjects[key]) {
         newArr = newArr.filter(function (element) {
           filterSet = false;
           for (var i = 0; i < element.offer.features.length; i++) {
@@ -100,29 +100,29 @@ window.mapFilters = (function () {
 
   var onTypeChange = function (evt) {
     objects.houseType = evt.target.value;
-    window.mapFilters.updateData(newData);
+    window.mapFilters.updateData(newObjects);
   };
   var onPriceChange = function (evt) {
     objects.housePrice = evt.target.value;
-    window.mapFilters.updateData(newData);
+    window.mapFilters.updateData(newObjects);
   };
   var onRoomsChange = function (evt) {
     objects.houseRooms = evt.target.value;
-    window.mapFilters.updateData(newData);
+    window.mapFilters.updateData(newObjects);
   };
   var onGuestsChange = function (evt) {
     objects.houseGuests = evt.target.value;
-    window.mapFilters.updateData(newData);
+    window.mapFilters.updateData(newObjects);
   };
 
   var onFeaturesChange = function () {
-    objChecked.wifi = wifiFeature.checked;
-    objChecked.dishwasher = dishwasherFeature.checked;
-    objChecked.parking = parkingFeature.checked;
-    objChecked.washer = washerFeature.checked;
-    objChecked.elevator = liftFeature.checked;
-    objChecked.conditioner = conditionerFeature.checked;
-    window.mapFilters.updateData(newData);
+    selectedObjects.wifi = wifiFeature.checked;
+    selectedObjects.dishwasher = dishwasherFeature.checked;
+    selectedObjects.parking = parkingFeature.checked;
+    selectedObjects.washer = washerFeature.checked;
+    selectedObjects.elevator = liftFeature.checked;
+    selectedObjects.conditioner = conditionerFeature.checked;
+    window.mapFilters.updateData(newObjects);
   };
 
   typeFilter.addEventListener('change', onTypeChange);
@@ -133,8 +133,8 @@ window.mapFilters = (function () {
 
   return {
     sample: function (newArr) {
-      newData = newArr.slice();
-      return newData.slice(0, PINS_LIMIT);
+      newObjects = newArr.slice();
+      return newObjects.slice(0, PINS_LIMIT);
     },
     updateData: function (newArr) {
       var filteredData = newArr;

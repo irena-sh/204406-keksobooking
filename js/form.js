@@ -28,8 +28,8 @@ window.form = (function () {
     palace: 10000
   };
 
-  var prices = TYPES.map(function (elem) {
-    return offerPrice[elem];
+  var prices = TYPES.map(function (element) {
+    return offerPrice[element];
   });
 
   var changeBorderColor = function (element) {
@@ -104,7 +104,7 @@ window.form = (function () {
     var lenCapacitySelectDef = houseAccordance.options.length;
     var arrCapacitySelect = roomsAccordance[roomNumber.value];
     var lenCapacitySelect = arrCapacitySelect.length;
-    [].forEach.call(houseAccordance.options, roomsActivate);
+    [].forEach.call(houseAccordance.options, activateRooms);
     for (var i = 0; i < lenCapacitySelectDef; i++) {
       var search = false;
       for (var j = 0; j < lenCapacitySelect; j++) {
@@ -114,7 +114,7 @@ window.form = (function () {
         }
       }
       if (!search) {
-        roomsDeactivate(houseAccordance.options[i]);
+        deactivateRooms(houseAccordance.options[i]);
       }
     }
     houseAccordance.value = arrCapacitySelect[0];
@@ -130,11 +130,11 @@ window.form = (function () {
     noticeForm.reset();
   };
 
-  var roomsActivate = function (element) {
+  var activateRooms = function (element) {
     element.classList.remove('hidden');
   };
 
-  var roomsDeactivate = function (element) {
+  var deactivateRooms = function (element) {
     element.classList.add('hidden');
   };
 
