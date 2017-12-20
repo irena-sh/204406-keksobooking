@@ -3,10 +3,10 @@
 (function () {
   var LIMIT = {
     min: 100,
-    max: 660
+    max: 450
   };
 
-  var PIN_TAIL = 20;
+  var PIN_WIDTH = 20;
   var PIN_HEIGHT = 50;
 
   var mainMap = document.querySelector('.map');
@@ -52,7 +52,7 @@
       }
       mainPin.style.left = newX + 'px';
       var houseAddress = document.querySelector('#address');
-      houseAddress.value = 'x: {{' + (newX + PIN_TAIL) + '}}, y: {{' + (newY + PIN_HEIGHT) + '}}';
+      houseAddress.value = 'x: {{' + (newX + PIN_WIDTH) + '}}, y: {{' + (newY + PIN_HEIGHT) + '}}';
     };
 
     var onMouseUp = function (eventUp) {
@@ -81,7 +81,7 @@
     allObjects = window.mapFilters.updateData(newData);
     allObjects.forEach(window.pin.render, fragment);
     resetPins();
-    pinsContainer.appendChild(fragment);
+    window.debounce(pinsContainer.appendChild(fragment));
   };
 
   pinMain.addEventListener('mousedown', onStartPageMousedown);
