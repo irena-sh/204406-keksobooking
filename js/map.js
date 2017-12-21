@@ -81,7 +81,7 @@
     allObjects = window.mapFilters.updateData(newObjects);
     allObjects.forEach(window.pin.render, fragment);
     resetPins();
-    window.debounce(pinsContainer.appendChild(fragment));
+    pinsContainer.appendChild(fragment);
   };
 
   pinMain.addEventListener('mousedown', onStartPageMousedown);
@@ -91,5 +91,7 @@
   mainMap.appendChild(window.showCard.openCard(pinMain, allObjects[0], pinsContainer));
   window.backend.load(onSuccessSave, window.backend.onErrorHandler);
   pinsContainer.addEventListener('click', clickPin);
-  houseFilter.addEventListener('click', onChangeFilter);
+  houseFilter.addEventListener('change', function () {
+    window.debounce(onChangeFilter);
+  });
 })();
