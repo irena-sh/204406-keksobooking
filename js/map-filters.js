@@ -1,6 +1,5 @@
-﻿'use strict';
+'use strict';
 window.mapFilters = (function () {
-
   var PINS_LIMIT = 5;
 
   var objects = {

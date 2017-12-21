@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 window.backend = (function () {
   var SAVE_URL = 'https://1510.dump.academy/keksobooking';
   var TIMEOUT = 10000;
@@ -37,7 +37,7 @@ window.backend = (function () {
       xhr.send(data);
     },
 
-    errorLoadSave: function (errorMessage) {
+    onErrorLoadSave: function (errorMessage) {
       var errorInformation = document.createElement('div');
       errorInformation.style = 'position: fixed; z-index: 100; padding: 15px auto; text-align: center; background-color: #F22544; border: 1px solid black; border-radius: 4px; font-size: 20px';
       errorInformation.style.left = 0;

@@ -1,5 +1,4 @@
-﻿'use strict';
-
+'use strict';
 window.form = (function () {
   var TYPES = ['flat', 'house', 'bungalo', 'palace'];
   var TIMES = ['12:00', '13:00', '14:00'];
@@ -64,15 +63,15 @@ window.form = (function () {
     returnBorderColor(evt.target);
   };
 
-  var onchangeCheckIn = function () {
+  var onChangeCheckIn = function () {
     window.synchronizeFields(houseCheckIn, houseCheckOut, TIMES, TIMES, syncValues);
   };
 
-  var onchangeCheckOut = function () {
+  var onChangeCheckOut = function () {
     window.synchronizeFields(houseCheckOut, houseCheckIn, TIMES, TIMES, syncValues);
   };
 
-  var onchangeType = function () {
+  var onChangeType = function () {
     window.synchronizeFields(houseType, housePrice, TYPES, prices, syncMin);
   };
 
@@ -141,9 +140,9 @@ window.form = (function () {
   houseTitle.addEventListener('invalid', onWrongTitle);
   houseTitle.addEventListener('blur', onBlurTitle);
   houseTitle.addEventListener('focus', onFocusTitle);
-  houseCheckIn.addEventListener('change', onchangeCheckIn);
-  houseCheckOut.addEventListener('change', onchangeCheckOut);
-  houseType.addEventListener('change', onchangeType);
+  houseCheckIn.addEventListener('change', onChangeCheckIn);
+  houseCheckOut.addEventListener('change', onChangeCheckOut);
+  houseType.addEventListener('change', onChangeType);
   housePrice.addEventListener('invalid', onWrongPrice);
   housePrice.addEventListener('change', onchangePrice);
   roomNumber.addEventListener('change', onChangeRoomNumber);
