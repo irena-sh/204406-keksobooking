@@ -37,7 +37,7 @@ window.backend = (function () {
       xhr.send(data);
     },
 
-    errorLoadSave: function (errorMessage) {
+    onErrorHandler: function (errorMessage) {
       var errorInformation = document.createElement('div');
       errorInformation.style = 'position: fixed; z-index: 100; padding: 15px auto; text-align: center; background-color: #F22544; border: 1px solid black; border-radius: 4px; font-size: 20px';
       errorInformation.style.left = 0;

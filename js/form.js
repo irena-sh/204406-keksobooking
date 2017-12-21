@@ -121,7 +121,7 @@ window.form = (function () {
 
   // отправка формы
   var onSubmitForm = function (event) {
-    window.backend.save(new FormData(noticeForm), showOriginalForm, window.backend.errorLoadSave);
+    window.backend.save(new FormData(noticeForm), showOriginalForm, window.backend.onErrorHandler);
     event.preventDefault();
   };
 

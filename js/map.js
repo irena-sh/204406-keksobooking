@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var LIMIT = {
     min: 100,
@@ -88,7 +89,7 @@
   pinsContainer.addEventListener('click', clickPin);
 
   mainMap.appendChild(window.showCard.openCard(pinMain, allObjects[0], pinsContainer));
-  window.backend.load(onSuccessSave, window.backend.onErrorLoadSave);
+  window.backend.load(onSuccessSave, window.backend.onErrorHandler);
   pinsContainer.addEventListener('click', clickPin);
   houseFilter.addEventListener('click', onChangeFilter);
 })();
