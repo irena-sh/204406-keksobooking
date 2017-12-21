@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 window.pin = (function () {
   var PIN_Y = 62;
 

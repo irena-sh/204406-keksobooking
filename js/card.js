@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 window.card = (function () {
   var places = {
     flat: 'Квартира',

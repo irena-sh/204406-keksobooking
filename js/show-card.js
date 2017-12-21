@@ -1,6 +1,5 @@
-﻿'use strict';
+'use strict';
 window.showCard = (function () {
-
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
