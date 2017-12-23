@@ -94,7 +94,7 @@
     }
   };
 
-  var onchangePrice = function () {
+  var onChangePrice = function () {
     returnBorderColor(housePrice);
     housePrice.setCustomValidity('');
   };
@@ -144,7 +144,7 @@
   houseCheckOut.addEventListener('change', onChangeCheckOut);
   houseType.addEventListener('change', onChangeType);
   housePrice.addEventListener('invalid', onWrongPrice);
-  housePrice.addEventListener('change', onchangePrice);
+  housePrice.addEventListener('change', onChangePrice);
   roomNumber.addEventListener('change', onChangeRoomNumber);
   noticeForm.addEventListener('submit', onSubmitForm);
 
