@@ -1,14 +1,15 @@
 'use strict';
-window.backend = (function () {
+(function () {
   var SAVE_URL = 'https://1510.dump.academy/keksobooking';
   var TIMEOUT = 10000;
+  var SUCSESS_NUMBER = 200;
 
   var loadRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCSESS_NUMBER) {
         onLoad(xhr.response);
       } else {
         onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
@@ -25,7 +26,7 @@ window.backend = (function () {
     return xhr;
   };
 
-  return {
+  window.backend = {
     load: function (onLoad, onError) {
       var xhr = loadRequest(onLoad, onError);
       xhr.open('GET', SAVE_URL + '/data');

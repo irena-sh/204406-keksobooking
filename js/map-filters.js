@@ -1,5 +1,5 @@
 'use strict';
-window.mapFilters = (function () {
+(function () {
   var PINS_LIMIT = 5;
 
   var objects = {
@@ -130,7 +130,7 @@ window.mapFilters = (function () {
   guestsFilter.addEventListener('change', onGuestsChange);
   featuresFilter.addEventListener('click', onFeaturesChange);
 
-  return {
+  window.mapFilters = {
     sample: function (newArr) {
       newObjects = newArr.slice();
       return newObjects.slice(0, PINS_LIMIT);

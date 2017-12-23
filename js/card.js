@@ -1,5 +1,5 @@
 'use strict';
-window.card = (function () {
+(function () {
   var places = {
     flat: 'Квартира',
     house: 'Дом',
@@ -11,7 +11,7 @@ window.card = (function () {
     return '<li class="feature feature--' + element + '"></li>';
   };
 
-  return {
+  window.card = {
     render: function (newElement, post) {
       var newElementP = newElement.querySelectorAll('p');
       var newElementUl = newElement.querySelector('.popup__features');

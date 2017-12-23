@@ -8,6 +8,7 @@
 
   var PIN_WIDTH = 20;
   var PIN_HEIGHT = 50;
+  var PINS_NUMBER = 2;
 
   var mainMap = document.querySelector('.map');
   var pinsContainer = mainMap.querySelector('.map__pins');
@@ -18,13 +19,15 @@
   var houseFilter = document.querySelector('.map__filters');
   var newObjects = [];
 
-  var startPage = function () { // начало работы с картой
-    mainMap.classList.remove('map--faded');
-    pinsContainer.appendChild(fragment);
-    window.form.activate();
+  window.map = {
+    startPage: function () { // начало работы с картой
+      mainMap.classList.remove('map--faded');
+      pinsContainer.appendChild(fragment);
+      window.form.activate();
+    }
   };
 
-  var clickPin = function (evt) {
+  var onPinClick = function (evt) {
     window.showCard.openCard(evt.target, allObjects, pinsContainer);
   };
 
@@ -68,11 +71,11 @@
     newObjects = arrData.slice();
     allObjects = window.mapFilters.sample(arrData);
     allObjects.forEach(window.pin.render, fragment);
-    pinMain.addEventListener('mouseup', startPage);
+    pinMain.addEventListener('mouseup', window.map.startPage);
   };
 
   var resetPins = function () {
-    while (pinsContainer.childElementCount > 2) {
+    while (pinsContainer.childElementCount > PINS_NUMBER) {
       pinsContainer.removeChild(pinsContainer.lastChild);
     }
   };
@@ -85,12 +88,12 @@
   };
 
   pinMain.addEventListener('mousedown', onStartPageMousedown);
-  pinMain.addEventListener('mouseup', startPage);
-  pinsContainer.addEventListener('click', clickPin);
+  pinMain.addEventListener('mouseup', window.map.startPage);
+  pinsContainer.addEventListener('click', onPinClick);
 
   mainMap.appendChild(window.showCard.openCard(pinMain, allObjects[0], pinsContainer));
   window.backend.load(onSuccessSave, window.backend.onErrorHandler);
-  pinsContainer.addEventListener('click', clickPin);
+  pinsContainer.addEventListener('click', onPinClick);
   houseFilter.addEventListener('change', function () {
     window.debounce(onChangeFilter);
   });

@@ -1,5 +1,5 @@
 'use strict';
-window.form = (function () {
+(function () {
   var TYPES = ['flat', 'house', 'bungalo', 'palace'];
   var TIMES = ['12:00', '13:00', '14:00'];
 
@@ -148,7 +148,7 @@ window.form = (function () {
   roomNumber.addEventListener('change', onChangeRoomNumber);
   noticeForm.addEventListener('submit', onSubmitForm);
 
-  return {
+  window.form = {
     activate: function () {
       noticeForm.classList.remove('notice__form--disabled');
     }
